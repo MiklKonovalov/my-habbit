@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TsE-7W-MUy">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="LYF-ut-SM9">
+            <objects>
+                <tabBarController id="TsE-7W-MUy" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="gFC-WF-lFC"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AuU-gS-a4B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="zw1-2S-sii" kind="relationship" relationship="viewControllers" id="eZH-SJ-RPD"/>
+                        <segue destination="t86-ho-WhZ" kind="relationship" relationship="viewControllers" id="SAi-3a-mex"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8iM-5x-srB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1394" y="1320"/>
+        </scene>
+        <!--Привычки-->
+        <scene sceneID="P2e-Bg-Swq">
+            <objects>
+                <navigationController id="zw1-2S-sii" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Привычки" image="rectangle.grid.1x2.fill" catalog="system" selectedImage="list.dash" id="8Ix-Iv-Zz1"/>
+                    <navigationItem key="navigationItem" id="M2a-xF-ruV"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sZL-kI-6k1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="b0K-CY-zDA">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="zr8-Wh-v05" kind="relationship" relationship="rootViewController" id="rJ0-qt-ofP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Qt-rP-ksJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2430" y="1041"/>
+        </scene>
+        <!--Habit Details View Controller-->
+        <scene sceneID="GwT-Fg-DOP">
+            <objects>
+                <viewController storyboardIdentifier="habitDetailsViewController" id="wCO-OX-jbo" customClass="HabitDetailsViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gGG-Vd-AUV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bIq-va-zZ5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1e3-Wf-OBg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXE-by-DrM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3206" y="347"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ou2-p5-TlL">
+            <objects>
+                <navigationController storyboardIdentifier="habitViewController" id="6Hq-9d-v9r" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="A98-Nr-urB"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5pp-YS-gdR">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="B1T-7l-ffS" kind="relationship" relationship="rootViewController" id="lm0-pX-NoN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ycE-aB-jR1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4067" y="1042"/>
+        </scene>
+        <!--Сегодня-->
+        <scene sceneID="SIV-Vy-zJ1">
+            <objects>
+                <viewController id="zr8-Wh-v05" customClass="HabitsViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J9z-Ht-W78">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVk-af-G5i">
+                                <rect key="frame" x="184" y="179" width="46" height="539"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="getVCfromCollection:" destination="zr8-Wh-v05" eventType="touchUpInside" id="1Wa-pI-PLx"/>
+                                    <action selector="goToHabitDetailsViewController:" destination="zr8-Wh-v05" eventType="touchUpInside" id="dFs-Rt-H0f"/>
+                                    <segue destination="wCO-OX-jbo" kind="show" identifier="HabitDetailsViewController" id="LtK-Yi-odj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xaZ-oz-bgr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Сегодня" id="R7v-gt-QCr">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="29J-N5-Oaj">
+                            <connections>
+                                <action selector="goToHabitViewController:" destination="zr8-Wh-v05" id="uME-IK-ECJ"/>
+                                <segue destination="6Hq-9d-v9r" kind="show" id="3li-SO-Nd0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gTP-rw-T84" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3205.7971014492755" y="1041.9642857142858"/>
+        </scene>
+        <!--Создать-->
+        <scene sceneID="a0d-yO-LGl">
+            <objects>
+                <viewController id="B1T-7l-ffS" customClass="HabitViewController" customModule="MyHabits" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VV2-KE-ENl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="syC-As-aCD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Создать" id="Adf-Zw-l54"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wO4-ch-LLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4897" y="1041"/>
+        </scene>
+        <!--Информация-->
+        <scene sceneID="eab-iy-6SC">
+            <objects>
+                <navigationController id="t86-ho-WhZ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Информация" image="info.circle" catalog="system" selectedImage="info.circle" id="tg9-HB-RuG"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0GM-yV-cjN">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="w0G-dC-tb0" kind="relationship" relationship="rootViewController" id="suU-0e-YaV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ZS-4o-tip" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2429" y="1807"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="As2-Jq-RgF">
+            <objects>
+                <viewController id="w0G-dC-tb0" customClass="InfoViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2bF-b8-f7v">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="GyB-4f-g46"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kS1-MA-v21"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sba-gH-6bZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3212" y="1808"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.63158176369863017" green="0.087462542808219176" blue="0.79928296232876717" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="rectangle.grid.1x2.fill" catalog="system" width="128" height="101"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
