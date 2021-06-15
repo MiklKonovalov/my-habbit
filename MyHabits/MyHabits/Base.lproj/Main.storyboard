@@ -17,6 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.63158176369999997" green="0.087462542810000002" blue="0.79928296229999996" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="zw1-2S-sii" kind="relationship" relationship="viewControllers" id="eZH-SJ-RPD"/>
@@ -31,7 +32,9 @@
         <scene sceneID="P2e-Bg-Swq">
             <objects>
                 <navigationController id="zw1-2S-sii" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Привычки" image="rectangle.grid.1x2.fill" catalog="system" selectedImage="list.dash" id="8Ix-Iv-Zz1"/>
+                    <tabBarItem key="tabBarItem" title="Привычки" image="list.dash" catalog="system" selectedImage="list.dash" id="8Ix-Iv-Zz1">
+                        <color key="badgeColor" red="0.63158176369999997" green="0.087462542810000002" blue="0.79928296229999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="M2a-xF-ruV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sZL-kI-6k1">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -96,21 +99,13 @@
                                 <connections>
                                     <action selector="getVCfromCollection:" destination="zr8-Wh-v05" eventType="touchUpInside" id="1Wa-pI-PLx"/>
                                     <action selector="goToHabitDetailsViewController:" destination="zr8-Wh-v05" eventType="touchUpInside" id="dFs-Rt-H0f"/>
-                                    <segue destination="wCO-OX-jbo" kind="show" identifier="HabitDetailsViewController" id="LtK-Yi-odj"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xaZ-oz-bgr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Сегодня" id="R7v-gt-QCr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="29J-N5-Oaj">
-                            <connections>
-                                <action selector="goToHabitViewController:" destination="zr8-Wh-v05" id="uME-IK-ECJ"/>
-                                <segue destination="6Hq-9d-v9r" kind="show" id="3li-SO-Nd0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Сегодня" id="R7v-gt-QCr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTP-rw-T84" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -136,7 +131,9 @@
         <scene sceneID="eab-iy-6SC">
             <objects>
                 <navigationController id="t86-ho-WhZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Информация" image="info.circle" catalog="system" selectedImage="info.circle" id="tg9-HB-RuG"/>
+                    <tabBarItem key="tabBarItem" title="Информация" image="info.circle" catalog="system" selectedImage="info.circle" id="tg9-HB-RuG">
+                        <color key="badgeColor" red="0.63158176369999997" green="0.087462542810000002" blue="0.79928296229999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0GM-yV-cjN">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -170,7 +167,6 @@
     <resources>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
-        <image name="rectangle.grid.1x2.fill" catalog="system" width="128" height="101"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

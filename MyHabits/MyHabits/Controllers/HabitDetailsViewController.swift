@@ -11,13 +11,15 @@ import UIKit
 class HabitDetailsViewController: UIViewController {
     
     var habit: Habit?
-
+    
+    //Устанавливаем навбар
     func setupNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(tap))
     }
     
     @objc func tap() {
         //Инициализируем HabitViewController
+        let habitsViewController = HabitsViewController()
         
         let editHabitController = HabitViewController(habit: habit, action: HabitViewController.Action(name: "Удалить привычку", action: {
 
@@ -26,12 +28,11 @@ class HabitDetailsViewController: UIViewController {
             }
             )
         )
-        
+        editHabitController.modalPresentationStyle = .fullScreen
         editHabitController.title = "Править"
         let navVC = UINavigationController(rootViewController: editHabitController)
-        navVC.modalPresentationStyle = .overFullScreen
-        //Показываем контроллер через презент
-        present(navVC, animated: true, completion: nil)
+        //показываем контроллер через пуш
+        navigationController?.pushViewController(editHabitController, animated: true)
         
     }
     
@@ -82,28 +83,24 @@ extension HabitDetailsViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .default, reuseIdentifier: cellOne)
         
         //2.2.2.Задаём для свойства путь к определённой дате(даём понять таблице, где находится конкретная ячейка)
-        let date = HabitsStore.shared.dates[indexPath.row]
+        let date = HabitsStore.shared.trackDateString(forIndex: indexPath.item)
         
-        //2.2.3.Конвертируем дату в стринг
+        //2.2.3.Передаём данные в ячейку
+        cell.textLabel?.text = date
+        
+        //2.2.4.Конвертируем String в Date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMM yyyy"
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.locale = Locale.current
-        let myDate = dateFormatter.string(from: date)
+        let myDate = dateFormatter.date(from: date ?? "Нет даты")
         
-        //2.2.4.Передаём данные в ячейку
-        cell.textLabel?.text = myDate
-
-        //-Задаём свойству конкретную привычку
-        //let habit = HabitsStore.shared.habits[indexPath.row]
-        
-        //-вызываем метод, в который передаём привычку и дату и проверяем с помощью метода
-        if !HabitsStore.shared.habit(habit!, isTrackedIn: date) {
+        //2.2.5.Проверяем затрекана ли привычка в конкретную дату
+        if !HabitsStore.shared.habit(habit!, isTrackedIn: myDate ?? Date()) {
             cell.accessoryType = .none
         } else {
             cell.accessoryType = .checkmark
         }
-        
         //-убираем выделение у ячейки
         cell.selectionStyle = .none
         

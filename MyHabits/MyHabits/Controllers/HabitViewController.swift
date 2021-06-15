@@ -8,8 +8,10 @@
 
 import UIKit
 
-class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate {
-        
+class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate, UITextFieldDelegate {
+           
+           let datePicker = UIDatePicker()
+    
            var habit: Habit?
         
            var habitID: Int?
@@ -30,7 +32,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm a"
             let myDate = formatter.string(from: habit?.date ?? Date())
-            timeTextField.text = myDate
+            timeTextLabel.text = myDate
             
             colorButton.backgroundColor = habit?.color
              
@@ -47,8 +49,18 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             super.init(coder: aDecoder)
     }
     
-    let datePicker = UIDatePicker()
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        
+    }
+    
+    
     //MARK: -ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +73,18 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         self.view.addSubview(colorButton)
         self.view.addSubview(timeLable)
         self.view.addSubview(everyDayLabel)
-        self.view.addSubview(timeTextField)
-        
+        self.view.addSubview(timeTextLabel)
+        self.view.addSubview(datePicker)
         self.view.addSubview(deleteButton)
         
+        habitTextField.delegate = self
+        
         //MARK: - Create Buttons on navbar
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .init(red: 249/255, green: 249/255, blue: 249/255, alpha: 0.94)
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         
         let cancelButton = UIBarButtonItem(title: "Отмена", style: .done, target: self, action: #selector(cancelTap))
         self.navigationItem.leftBarButtonItem = cancelButton
@@ -76,20 +95,13 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         self.navigationItem.rightBarButtonItem = createButton
         
         //MARK: - Create DatePicker
-        timeTextField.inputView = datePicker
+        
+        datePicker.becomeFirstResponder()
         datePicker.datePickerMode = .time
-        datePicker.backgroundColor = .white
-        
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneAction))
-        
-        toolbar.setItems([doneButton], animated: true)
-        
         datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tepGestureDone))
-        self.view.addGestureRecognizer(tapGesture)
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.backgroundColor = .white
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         //MARK: - Create constraints
         
@@ -115,19 +127,22 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
            everyDayLabel.topAnchor.constraint(equalTo: timeLable.bottomAnchor, constant: 20),
            everyDayLabel.leadingAnchor.constraint(equalTo: titleLable.leadingAnchor),
            
-           timeTextField.topAnchor.constraint(equalTo: everyDayLabel.topAnchor),
-           timeTextField.leadingAnchor.constraint(equalTo: everyDayLabel.trailingAnchor, constant: 5),
+           timeTextLabel.topAnchor.constraint(equalTo: everyDayLabel.topAnchor),
+           timeTextLabel.leadingAnchor.constraint(equalTo: everyDayLabel.trailingAnchor, constant: 5),
            
            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
            deleteButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            
+           datePicker.widthAnchor.constraint(equalTo: view.widthAnchor),
+           datePicker.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
            
         ]
         NSLayoutConstraint.activate(constraints)
         
-        habitTextField.becomeFirstResponder()
     }
     
     //MARK: - Create Selectors
+    
     @objc func doneAction() {
         view.endEditing(true)
     }
@@ -136,7 +151,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         getDateFromPicker()
     }
     
-    @objc func tepGestureDone() {
+    @objc func tapGestureDone() {
         view.endEditing(true)
     }
     
@@ -146,24 +161,23 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     
     @objc func createDataButton() {
         //создание новой привычки при нажатии на кнопку “Сохранить“. При этом я проверяю, чтобы новая привычка создавалась, если в контроллер до этого не передавалась привычка
+        let habitsViewController = HabitsViewController()
         if let habit = habit {
+            //редактируем уже старую привычку
             habit.name = habitTextField.text ?? "no data"
 
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm a"
-            let myDate = formatter.date(from: timeTextField.text ?? "no time")
+            let myDate = formatter.date(from: timeTextLabel.text ?? "no time")
             habit.date = myDate ?? Date()
-            HabitsStore.shared.save()
             habit.color = colorButton.backgroundColor!
+            HabitsStore.shared.save()
             
-            let hbdvc = HabitDetailsViewController()
-            self.dismiss(animated: true, completion: {
-                hbdvc.dismiss(animated: true, completion: nil)
-            })
-            
+            navigationController?.dismiss(animated: true, completion: nil)
+            navigationController?.popToRootViewController(animated: true)
             
         } else {
-            
+            //создаём новую привычку
             let newHabit = Habit(name: habitTextField.text ?? "No date",
                                  date: Date(),
                                  color: colorButton.backgroundColor!
@@ -171,9 +185,9 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             let store = HabitsStore.shared
             store.habits.append(newHabit)
             HabitsStore.shared.save()
-            
-            dismiss(animated: true, completion: nil)
-            
+            habitsViewController.habitArray.append(newHabit)
+            navigationController?.dismiss(animated: true, completion: nil)
+            navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -198,11 +212,14 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             self.dismiss(animated: true, completion: nil)
         })
         //"Удалить", при нажатии на который привычка удаляется из HabitsStore, экраны HabitViewController и HabitDetailsViewController закрываются и привычка пропадает из списка на экране MyHabitsViewController.
-        let deleteHabitButton = UIAlertAction(title: "Удалить", style: .default, handler: {
+        let deleteHabitButton = UIAlertAction(title: "Удалить", style: .destructive, handler: {
             (alertController: UIAlertAction) -> Void in
-            self.dismiss(animated: true, completion: nil)
-            //Я уже нахожусь в конкретной привычке.
             
+            //Возвращаемся на HabitsViewController?
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popToRootViewController(animated: true)
+            
+            //Я уже нахожусь в конкретной привычке.
             if let idx = HabitsStore.shared.habits.firstIndex(where: { $0 === self.habit }) {
                 HabitsStore.shared.habits.remove(at: idx)
             }
@@ -210,7 +227,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             HabitsStore.shared.save()
         }
         )
-        deleteHabitButton.setValue(UIColor.red, forKey: "titleTextColor")
+        
         alertController.addAction(cancelButton)
         alertController.addAction(deleteHabitButton)
         self.present(alertController, animated: true, completion: nil)
@@ -238,8 +255,9 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     
     func getDateFromPicker() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm a"
-        timeTextField.text = formatter.string(from: datePicker.date)
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        timeTextLabel.text = formatter.string(from: datePicker.date)
     }
     
     //MARK: - Create Subviews
@@ -255,6 +273,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         let habitTextField = UITextField()
         habitTextField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         habitTextField.translatesAutoresizingMaskIntoConstraints = false
+        habitTextField.resignFirstResponder()
         return habitTextField
     }()
     
@@ -292,13 +311,14 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         return everyDayLabel
     }()
     
-    let timeTextField: UITextField = {
-        let timeTextField = UITextField()
-        timeTextField.font = UIFont(name: "SFProText-Regular", size: 17)
-        timeTextField.text = "11:00"
-        timeTextField.textColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
-        timeTextField.translatesAutoresizingMaskIntoConstraints = false
-        return timeTextField
+    let timeTextLabel: UILabel = {
+        let timeTextLabel = UILabel()
+        timeTextLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        timeTextLabel.text = "11:00"
+        timeTextLabel.becomeFirstResponder()
+        timeTextLabel.textColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
+        timeTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        return timeTextLabel
     }()
     
     let deleteButton: UIButton = {
@@ -309,7 +329,21 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         return deleteButton
     }()
+    //пишем функцию для ограничения количества вводимых символов в UITextField
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //range.length - количество символов, которые можно ввести
+        //range.location - количество символов, которые уже ввели
+        //Если количество введённых символов больше, чем количество символов в текстовом поле, то возвращается false и вводить новые символы нельзя
+        if range.length + range.location > habitTextField.text?.count ?? 0 {
+            return false
+        }
+        //создаём свойство, которое устанавливает лимит. String.count - это вводимый символ, который мы должны учитывать. 
+        var newLimit = (habitTextField.text?.count)! + string.count - range.length
+        
+        return newLimit <= 50
+    }
     
 }
+
 
 

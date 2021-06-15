@@ -21,7 +21,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
             
         }
     }
-    
+    //MARK:-Create subview's
     let titleLabel: UILabel = {
     let titleLabel = UILabel()
     titleLabel.font = UIFont(name: "SFProText-Semibold", size: 13)
@@ -30,14 +30,6 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
     return titleLabel
     }()
-    
-//    let percentProgressView: UIProgressView = {
-//    let percentProgressView = UIProgressView()
-//    //percentProgressView.setProgress(0.0, animated: true)
-//    //percentProgressView.font = UIFont(name: "SFProText-Semibold", size: 18)
-//    percentProgressView.translatesAutoresizingMaskIntoConstraints = false
-//    return percentProgressView
-//    }()
     
     let percentLabel: UILabel = {
     let percentLabel = UILabel()
@@ -60,16 +52,15 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
         
         contentView.backgroundColor = .white
         
-        contentView.addSubview(titleLabel)
         self.contentView.layer.cornerRadius = 10
-        
-        //contentView.addSubview(percentProgressView)
+        //MARK:-Add subview's
+        contentView.addSubview(titleLabel)
         contentView.addSubview(percentLabel)
-        
         contentView.addSubview(progressView)
         
-        progressView.setProgress(0.0, animated: false)
+        progressView.setProgress(0.5, animated: false)
         
+        //MARK:-Create constraints
         let constraints = [
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -79,9 +70,6 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
             progressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             progressView.widthAnchor.constraint(equalToConstant: 100),
             progressView.heightAnchor.constraint(equalToConstant: 5),
-            
-            //percentProgressView.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-            //percentProgressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
             percentLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             percentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),

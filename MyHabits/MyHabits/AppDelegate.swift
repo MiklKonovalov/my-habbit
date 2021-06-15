@@ -11,16 +11,19 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-//    var window: UIWindow?
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //Когда ваше приложение запускается, iOS необходимо точно знать, какой контроллер представления должен быть показан первым - известный как ваш контроллер представления по умолчанию.
         
-//        window = UIWindow()
-//        window?.makeKeyAndVisible()
-//        window?.rootViewController = UINavigationController(rootViewController: HabitsViewController())
-//
-return true
-}
+        var rootView = HabitsViewController()
+            
+        if let window = self.window {
+            window.rootViewController = rootView
+        }
+
+        return true
+        }
 
     // MARK: UISceneSession Lifecycle
 

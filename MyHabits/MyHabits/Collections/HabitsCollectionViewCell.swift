@@ -24,13 +24,23 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             timeOfHabitLabel.text = habit?.dateString
             colorView.backgroundColor = habit?.color
             nameOfHabitLabel.textColor = habit?.color
+            //Если привычка затрекана
+            if habit?.isAlreadyTakenToday == true {
+                //устанавливаем цвет круга = цвету привычки
+                fillColorView.backgroundColor = habit?.color
+            } else {
+                //в другом случае делаем заливку равной белому кругу
+                fillColorView.backgroundColor = .white
             }
-        }
+        
+            }
+    }
     
-    let nameOfHabitLabel: UILabel = {
-        let nameOfHabitLabel = UILabel()
+    let nameOfHabitLabel: UITextView = {
+        let nameOfHabitLabel = UITextView()
         nameOfHabitLabel.font = UIFont(name: "SFProText-Semibold", size: 17)
         nameOfHabitLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameOfHabitLabel.isUserInteractionEnabled = false
         return nameOfHabitLabel
         }()
     
@@ -52,7 +62,6 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     
     let fillColorView: UIView = {
         let fillColorView = UIView()
-        fillColorView.layer.backgroundColor = UIColor.white.cgColor
         fillColorView.layer.cornerRadius = 30 / 2
         fillColorView.clipsToBounds = true
         fillColorView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,6 +99,8 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
         
         self.contentView.layer.cornerRadius = 10
         
+
+        
         //MARK: - Constraints
         var fillTopAnchor = fillColorView.centerYAnchor.constraint(equalTo: colorView.centerYAnchor)
         
@@ -109,19 +120,22 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
         fillColorView.addGestureRecognizer(tapOnColorRange)
         
         let constraints = [
-            nameOfHabitLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            nameOfHabitLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             nameOfHabitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            nameOfHabitLabel.trailingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: -10),
+            //nameOfHabitLabel.bottomAnchor.constraint(equalTo: timeOfHabitLabel.bottomAnchor, constant: -10),
+            nameOfHabitLabel.heightAnchor.constraint(equalToConstant: 60),
             
-            timeOfHabitLabel.topAnchor.constraint(equalTo: nameOfHabitLabel.topAnchor, constant: 20),
-            timeOfHabitLabel.leadingAnchor.constraint(equalTo: nameOfHabitLabel.leadingAnchor),
+            timeOfHabitLabel.topAnchor.constraint(equalTo: nameOfHabitLabel.bottomAnchor),
+            timeOfHabitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
             
             colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
             colorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             colorView.widthAnchor.constraint(equalToConstant: 40),
             colorView.heightAnchor.constraint(equalToConstant: 40),
             
-            countLabel.topAnchor.constraint(equalTo: timeOfHabitLabel.topAnchor, constant: 40),
-            countLabel.leadingAnchor.constraint(equalTo: nameOfHabitLabel.leadingAnchor),
+            countLabel.topAnchor.constraint(equalTo: timeOfHabitLabel.topAnchor, constant: 50),
+            countLabel.leadingAnchor.constraint(equalTo: timeOfHabitLabel.leadingAnchor),
             
             checkMark.centerYAnchor.constraint(equalTo: fillColorView.centerYAnchor),
             checkMark.centerXAnchor.constraint(equalTo: fillColorView.centerXAnchor),
@@ -154,7 +168,7 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     }
     
     func noAnimation() {
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
+        let animator = UIViewPropertyAnimator(duration: 0.0, curve: .linear) {
             
         //self.fillColorView.backgroundColor = self.habit?.color
             
@@ -172,25 +186,27 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Selectors
     @objc func tap() {
-        //Также нужно сохранить время привычки с помощью функции HabitsStore.shared.track(). Каждый день можно добавить только одно время для одной привычки. Проверить это условие можно с помощью свойства isAlreadyTakenToday.
+        //Нужно сохранить время привычки с помощью функции HabitsStore.shared.track(). Каждый день можно добавить только одно время для одной привычки. Проверить это условие можно с помощью свойства isAlreadyTakenToday.
         
-        //if let habit = habit {
         //Проверяем, что привычка не была затрекана
-        //guard habit.isAlreadyTakenToday else { return }
         if let habit = habit {
+            //Если привычка не затрекана
             if habit.isAlreadyTakenToday == false {
                 //трекаем привычку
                 HabitsStore.shared.track(habit)
                 //увеличиваем счётчик
                 self.count += 1
+                //вызываем анимацию
                 startAnimation()
-                
                 print("Привычка затрекана")
-            } else {
-        //создаём аниматор
-        noAnimation()
+            //если привычка затрекана, то ничего не происходит
             }
+            //else {
+        //создаём аниматор
+        //noAnimation()
+        //    }
         }
     print(type(of: self), #function)
     }
+    
 }

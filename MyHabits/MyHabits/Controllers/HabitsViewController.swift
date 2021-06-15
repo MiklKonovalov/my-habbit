@@ -10,12 +10,6 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-    @IBAction func goToHabitViewController(_ sender: Any) {
-        let storyboard: UIStoryboard = UIStoryboard(name: "Создать", bundle: nil)
-        let habitViewController = storyboard.instantiateViewController(identifier: "habitViewController") as! HabitViewController
-        self.present(habitViewController, animated: true, completion: nil)
-    }
-    
     var habit: Habit?
     
     func captureModified(habit: Habit?) {
@@ -37,24 +31,34 @@ class HabitsViewController: UIViewController {
         return collectionView
     }()
     
-    //во viewDidAppear, потому что viewWillAppear срабатывает раньше, чем приходят данные. Поэтому они становятся видны в таблице только при следующем перезапуске.
-    override func viewDidAppear(_ animated: Bool) {
+    var habitArray = [Habit](){
+            didSet {
+                    self.collectionView.reloadData()
+            }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+    
         collectionView.reloadData()
+        
     }
     
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    //MARK: - Navbar settings
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundColor = .init(red: 249/255, green: 249/255, blue: 249/255, alpha: 0.94)
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-
+        //Добавляем кнопку добавления привычки
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabit))
+        navigationItem.rightBarButtonItem = addButton
+        
         self.view.addSubview(collectionView)
-        //надо заскролить коллекцию!!!
+        
         let constraints = [
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -64,7 +68,15 @@ class HabitsViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
         
     }
-
+    
+    //MARK:-Selectors
+    @objc func addHabit() {
+        let habitViewController = HabitViewController()
+        let navVC = UINavigationController(rootViewController: habitViewController)
+        habitViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(habitViewController, animated: true)
+        
+    }
     
 }
 
@@ -85,6 +97,7 @@ extension HabitsViewController: UICollectionViewDataSource {
         }
     }
     
+    //cellForItemAt отвечает за вид ячейки
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! HabitsCollectionViewCell
         
@@ -99,26 +112,34 @@ extension HabitsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let progress = HabitsStore.shared.todayProgress
             cellTwo.progressIsLoad = progress
+            //Отключаем выбор ячеек в конкретной секции
+            cellTwo.isUserInteractionEnabled = false
             return cellTwo
         }
-        
         return cell
     }
     
+    //Задаём поведение ячейке при тапе (переход на HabitDetailsViewController)
+    //Выполним перезагрузку ячейки в методе didSelectItemAt
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let habitDetailsViewController = storyboard?.instantiateViewController(identifier: "habitDetailsViewController") as? HabitDetailsViewController
+        let habitDetailsViewController = HabitDetailsViewController()
         
+        //Получаем выбранный объект Habit из источника данных по indexPath.item
         let habit = HabitsStore.shared.habits[indexPath.item]
-        habitDetailsViewController?.habit = habit
+        //Получаем доступ к конкретной ячейке
+        habitDetailsViewController.habit = habit
+        
+        habitDetailsViewController.modalPresentationStyle = .fullScreen
+        
+        let navVC = UINavigationController(rootViewController: habitDetailsViewController)
+        navigationController?.pushViewController(habitDetailsViewController, animated: true)
     
-        navigationController?.pushViewController(habitDetailsViewController!, animated: true)
-        print(type(of: self), #function)
     }
     
     //где надо написать, что если выбор первой секции, то не анимировать?
     func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        return (indexPath.item == 0) ? true : false
+        return (indexPath.section == 0) ? true : false
     }
         
 }
@@ -133,7 +154,7 @@ extension UICollectionView {
 extension HabitsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+        //Задаём размеры ячеек
         let width: CGFloat = collectionView.frame.width - 10 * 2
         var heigth: CGFloat = (collectionView.frame.height - 10 * 2) / 10
         
@@ -141,7 +162,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         case 0:
             break
         case 1:
-            heigth = (collectionView.frame.height - 10 * 2) / 6
+            heigth = (collectionView.frame.height - 10 * 2) / 4
         default:
             break
         }
@@ -161,4 +182,5 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         UIEdgeInsets(top: 15, left: 10, bottom: 15, right: 10)
     }
 }
+
 
