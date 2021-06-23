@@ -12,7 +12,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     
     //Надо передать в прогрессвью данные из свойства HabitsStore.shared.todayProgress.
     //В свойстве HabitsStore.shared.todayProgress
-    
+    //MARK:-Observer
     var progressIsLoad: Float? {
         didSet {
             let progressData = HabitsStore.shared.todayProgress
@@ -21,6 +21,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
             
         }
     }
+    
     //MARK:-Create subview's
     let titleLabel: UILabel = {
     let titleLabel = UILabel()
@@ -50,9 +51,12 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
+        
         contentView.backgroundColor = .white
         
         self.contentView.layer.cornerRadius = 10
+       
         //MARK:-Add subview's
         contentView.addSubview(titleLabel)
         contentView.addSubview(percentLabel)

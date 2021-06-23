@@ -31,7 +31,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm a"
-            let myDate = formatter.string(from: habit?.date ?? Date())
+            let myDate = formatter.string(from: habit!.date)
             timeTextLabel.text = myDate
             
             colorButton.backgroundColor = habit?.color
@@ -48,18 +48,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        
-    }
-    
     
     //MARK: -ViewDidLoad
     override func viewDidLoad() {
@@ -81,10 +69,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         
         //MARK: - Create Buttons on navbar
         
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .init(red: 249/255, green: 249/255, blue: 249/255, alpha: 0.94)
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
         let cancelButton = UIBarButtonItem(title: "Отмена", style: .done, target: self, action: #selector(cancelTap))
         self.navigationItem.leftBarButtonItem = cancelButton
@@ -134,7 +119,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
            deleteButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
            datePicker.widthAnchor.constraint(equalTo: view.widthAnchor),
-           datePicker.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            datePicker.topAnchor.constraint(equalTo: timeTextLabel.bottomAnchor, constant: 20),
            
         ]
         NSLayoutConstraint.activate(constraints)
@@ -153,10 +138,13 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     
     @objc func tapGestureDone() {
         view.endEditing(true)
+        print(type(of: self), #function)
     }
     
     @objc func cancelTap() {
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
+        print(type(of: self), #function)
     }
     
     @objc func createDataButton() {
@@ -166,15 +154,21 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             //редактируем уже старую привычку
             habit.name = habitTextField.text ?? "no data"
 
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm a"
-            let myDate = formatter.date(from: timeTextLabel.text ?? "no time")
-            habit.date = myDate ?? Date()
+            habit.date = datePicker.date
             habit.color = colorButton.backgroundColor!
             HabitsStore.shared.save()
             
+//            var titleOfHabitDetails = { (name: String) -> String in
+//                
+//                let habitDetailsViewController = HabitDetailsViewController()
+//                habitDetailsViewController.title = habit.name
+//                habit.name = name
+//                
+//                return name
+//            }
+            
             navigationController?.dismiss(animated: true, completion: nil)
-            navigationController?.popToRootViewController(animated: true)
+            navigationController?.popViewController(animated: true)
             
         } else {
             //создаём новую привычку
@@ -235,9 +229,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
     
     @objc func didTapSelectColor() {
-            let colorPickerVC = UIColorPickerViewController()
-            colorPickerVC.delegate = self
-            present(colorPickerVC, animated: true)
+        let colorPickerVC = UIColorPickerViewController()
+        colorPickerVC.selectedColor = self.colorButton.backgroundColor!
+        colorPickerVC.delegate = self
+        present(colorPickerVC, animated: true)
         
     }
 
@@ -338,9 +333,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             return false
         }
         //создаём свойство, которое устанавливает лимит. String.count - это вводимый символ, который мы должны учитывать. 
-        var newLimit = (habitTextField.text?.count)! + string.count - range.length
+        let newLimit = (habitTextField.text?.count)! + string.count - range.length
         
-        return newLimit <= 50
+        return newLimit <= 30
+        
     }
     
 }

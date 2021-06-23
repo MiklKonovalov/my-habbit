@@ -19,18 +19,17 @@ class HabitDetailsViewController: UIViewController {
     
     @objc func tap() {
         //Инициализируем HabitViewController
-        let habitsViewController = HabitsViewController()
+        //let habitsViewController = HabitsViewController()
         
         let editHabitController = HabitViewController(habit: habit, action: HabitViewController.Action(name: "Удалить привычку", action: {
 
             print("123")
 
-            }
-            )
+            })
         )
+        
         editHabitController.modalPresentationStyle = .fullScreen
-        editHabitController.title = "Править"
-        let navVC = UINavigationController(rootViewController: editHabitController)
+        
         //показываем контроллер через пуш
         navigationController?.pushViewController(editHabitController, animated: true)
         
@@ -45,12 +44,13 @@ class HabitDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
             navigationItem.largeTitleDisplayMode = .never
-            
+            title = habit?.name
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = habit?.name
+        
+        //устанавливаем фон ячейки
         self.view.backgroundColor = UIColor.white
         
         setupNavigationBar()
@@ -83,20 +83,22 @@ extension HabitDetailsViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .default, reuseIdentifier: cellOne)
         
         //2.2.2.Задаём для свойства путь к определённой дате(даём понять таблице, где находится конкретная ячейка)
-        let date = HabitsStore.shared.trackDateString(forIndex: indexPath.item)
-        
-        //2.2.3.Передаём данные в ячейку
-        cell.textLabel?.text = date
-        
-        //2.2.4.Конвертируем String в Date
+        //let date = HabitsStore.shared.trackDateString(forIndex: indexPath.item)
+        //->передаём Date
+        let date = HabitsStore.shared.dates[indexPath.item]
+        //->форматируем Date в String
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMM yyyy"
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.locale = Locale.current
-        let myDate = dateFormatter.date(from: date ?? "Нет даты")
+        let myDate = dateFormatter.string(from: date)
+        
+        //2.2.3.Передаём данные в ячейку
+        //->передаём String
+        cell.textLabel?.text = myDate
         
         //2.2.5.Проверяем затрекана ли привычка в конкретную дату
-        if !HabitsStore.shared.habit(habit!, isTrackedIn: myDate ?? Date()) {
+        if !HabitsStore.shared.habit(habit!, isTrackedIn: date) {
             cell.accessoryType = .none
         } else {
             cell.accessoryType = .checkmark

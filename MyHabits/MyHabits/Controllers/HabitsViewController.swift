@@ -37,10 +37,15 @@ class HabitsViewController: UIViewController {
             }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    var datesHabitArray = [Habit](){
+            didSet {
+                self.collectionView.reloadData()
+
+            }
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
         collectionView.reloadData()
-        
     }
     
     
@@ -72,7 +77,6 @@ class HabitsViewController: UIViewController {
     //MARK:-Selectors
     @objc func addHabit() {
         let habitViewController = HabitViewController()
-        let navVC = UINavigationController(rootViewController: habitViewController)
         habitViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(habitViewController, animated: true)
         
@@ -132,12 +136,12 @@ extension HabitsViewController: UICollectionViewDataSource {
         
         habitDetailsViewController.modalPresentationStyle = .fullScreen
         
-        let navVC = UINavigationController(rootViewController: habitDetailsViewController)
+        _ = UINavigationController(rootViewController: habitDetailsViewController)
         navigationController?.pushViewController(habitDetailsViewController, animated: true)
     
     }
     
-    //где надо написать, что если выбор первой секции, то не анимировать?
+    //Если выбор первой секции, то не анимируем
     func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         return (indexPath.section == 0) ? true : false
     }

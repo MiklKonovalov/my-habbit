@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //Когда ваше приложение запускается, iOS необходимо точно знать, какой контроллер представления должен быть показан первым - известный как ваш контроллер представления по умолчанию.
         
-        var rootView = HabitsViewController()
+        let rootView = HabitsViewController()
             
         if let window = self.window {
             window.rootViewController = rootView

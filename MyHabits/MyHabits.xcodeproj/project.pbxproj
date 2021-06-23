@@ -10,7 +10,6 @@
 		C61E19572646C76700196A76 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61E19562646C76700196A76 /* HabitViewController.swift */; };
 		C62804B4264C0C4900B9CB97 /* HabitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62804B3264C0C4900B9CB97 /* HabitsCollectionViewCell.swift */; };
 		C62804B7264E98A500B9CB97 /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62804B6264E98A500B9CB97 /* ProgressCollectionViewCell.swift */; };
-		C6410F9E2666D22300B37EC9 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6410F9D2666D22300B37EC9 /* SF-Pro-Text-Semibold.otf */; };
 		C6410FA02666D24400B37EC9 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6410F9F2666D24400B37EC9 /* SF-Pro-Display-Semibold.otf */; };
 		C6410FA22666D25800B37EC9 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6410FA12666D25800B37EC9 /* SF-Pro-Text-Regular.otf */; };
 		C6410FA42667A5CE00B37EC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6410FA32667A5CE00B37EC9 /* LaunchScreen.storyboard */; };
@@ -25,6 +24,7 @@
 		C673568D2642A091001C0BA9 /* HabitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C673568C2642A091001C0BA9 /* HabitStore.swift */; };
 		C673568F2642AEDB001C0BA9 /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C673568E2642AEDB001C0BA9 /* HabitsViewController.swift */; };
 		C67356912642AF1A001C0BA9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67356902642AF1A001C0BA9 /* InfoViewController.swift */; };
+		C6C436C926820D9500F41905 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6C436C826820D9500F41905 /* SF-Pro-Text-Semibold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,6 @@
 		C61E19562646C76700196A76 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		C62804B3264C0C4900B9CB97 /* HabitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		C62804B6264E98A500B9CB97 /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
-		C6410F9D2666D22300B37EC9 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Semibold.otf"; path = "../../../San Francisco Fonts/SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		C6410F9F2666D24400B37EC9 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Semibold.otf"; path = "../../../San Francisco Fonts/SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		C6410FA12666D25800B37EC9 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Regular.otf"; path = "../../../San Francisco Fonts/SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		C6410FA32667A5CE00B37EC9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,6 +68,7 @@
 		C673568C2642A091001C0BA9 /* HabitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStore.swift; sourceTree = "<group>"; };
 		C673568E2642AEDB001C0BA9 /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
 		C67356902642AF1A001C0BA9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		C6C436C826820D9500F41905 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Semibold.otf"; path = "../../../San Francisco Fonts/SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +99,7 @@
 		C61E194D26455AF800196A76 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C6410F9D2666D22300B37EC9 /* SF-Pro-Text-Semibold.otf */,
+				C6C436C826820D9500F41905 /* SF-Pro-Text-Semibold.otf */,
 				C6410F9F2666D24400B37EC9 /* SF-Pro-Display-Semibold.otf */,
 				C6410FA12666D25800B37EC9 /* SF-Pro-Text-Regular.otf */,
 			);
@@ -294,9 +294,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6C436C926820D9500F41905 /* SF-Pro-Text-Semibold.otf in Resources */,
 				C6410FA42667A5CE00B37EC9 /* LaunchScreen.storyboard in Resources */,
 				C6410FA22666D25800B37EC9 /* SF-Pro-Text-Regular.otf in Resources */,
-				C6410F9E2666D22300B37EC9 /* SF-Pro-Text-Semibold.otf in Resources */,
 				C6410FA02666D24400B37EC9 /* SF-Pro-Display-Semibold.otf in Resources */,
 				C673566626429331001C0BA9 /* Assets.xcassets in Resources */,
 				C67356642642932A001C0BA9 /* Main.storyboard in Resources */,

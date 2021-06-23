@@ -102,12 +102,12 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
 
         
         //MARK: - Constraints
-        var fillTopAnchor = fillColorView.centerYAnchor.constraint(equalTo: colorView.centerYAnchor)
+        let fillTopAnchor = fillColorView.centerYAnchor.constraint(equalTo: colorView.centerYAnchor)
         
-        var fillCenterXAnchor = fillColorView.centerXAnchor.constraint(equalTo: colorView.centerXAnchor)
-        var fillCenterYAnchor = fillColorView.widthAnchor.constraint(equalToConstant: 30)
+        let fillCenterXAnchor = fillColorView.centerXAnchor.constraint(equalTo: colorView.centerXAnchor)
+        let fillCenterYAnchor = fillColorView.widthAnchor.constraint(equalToConstant: 30)
         
-        var fillHeightAnchor = fillColorView.heightAnchor.constraint(equalToConstant: 30)
+        let fillHeightAnchor = fillColorView.heightAnchor.constraint(equalToConstant: 30)
         
         createColorStatusConstraint.append(fillTopAnchor)
         createColorStatusConstraint.append(fillCenterXAnchor)
@@ -194,6 +194,9 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             if habit.isAlreadyTakenToday == false {
                 //трекаем привычку
                 HabitsStore.shared.track(habit)
+                let habitsViewController = HabitsViewController()
+                //guard let date = Habit. else { return }
+                habitsViewController.datesHabitArray.append(habit)
                 //увеличиваем счётчик
                 self.count += 1
                 //вызываем анимацию
