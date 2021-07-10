@@ -18,7 +18,6 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
             let progressData = HabitsStore.shared.todayProgress
             progressView.progress = progressData
             percentLabel.text = "\(Int(progressData * 100))" + "%"
-            
         }
     }
     
@@ -40,7 +39,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
     return percentLabel
     }()
     
-    let progressView: UIProgressView = {
+    var progressView: UIProgressView = {
     let progressView = UIProgressView()
     progressView.progressViewStyle = .default
     progressView.progressTintColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 0.94)

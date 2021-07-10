@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol HabitsCollectionViewCellDelegate {
+    func reloadDate()
+}
+
 final class HabitsCollectionViewCell: UICollectionViewCell {
+    
+    var delegate: HabitsCollectionViewCellDelegate?
     
     var createColorStatusConstraint = [NSLayoutConstraint]()
     
@@ -194,9 +200,9 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             if habit.isAlreadyTakenToday == false {
                 //трекаем привычку
                 HabitsStore.shared.track(habit)
-                let habitsViewController = HabitsViewController()
-                //guard let date = Habit. else { return }
-                habitsViewController.datesHabitArray.append(habit)
+                
+                delegate?.reloadDate()
+                
                 //увеличиваем счётчик
                 self.count += 1
                 //вызываем анимацию

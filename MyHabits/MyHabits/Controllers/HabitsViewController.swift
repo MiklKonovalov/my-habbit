@@ -8,7 +8,13 @@
 
 import UIKit
 
-class HabitsViewController: UIViewController {
+
+
+class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate {
+    
+    func reloadDate() {
+        self.collectionView.reloadData()
+    }
     
     var habit: Habit?
     
@@ -36,22 +42,15 @@ class HabitsViewController: UIViewController {
                     self.collectionView.reloadData()
             }
     }
-    
-    var datesHabitArray = [Habit](){
-            didSet {
-                self.collectionView.reloadData()
 
-            }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        collectionView.reloadData()
-    }
-    
+    var arrayForProgressView: [Habit] = []
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
     //MARK: - Navbar settings
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let navBarAppearance = UINavigationBarAppearance()
@@ -116,8 +115,13 @@ extension HabitsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let progress = HabitsStore.shared.todayProgress
             cellTwo.progressIsLoad = progress
+            
             //Отключаем выбор ячеек в конкретной секции
             cellTwo.isUserInteractionEnabled = false
+            
+            let habitCollectionViewCell = HabitsCollectionViewCell()
+            habitCollectionViewCell.delegate = self
+            
             return cellTwo
         }
         return cell

@@ -87,6 +87,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.backgroundColor = .white
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.date = habit?.date ?? Date() //dateOnDatePicker ?? Date()
         
         //MARK: - Create constraints
         
@@ -97,6 +98,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             
            habitTextField.topAnchor.constraint(equalTo: titleLable.bottomAnchor, constant: 20),
            habitTextField.leadingAnchor.constraint(equalTo: titleLable.leadingAnchor),
+           habitTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
            
            colorLable.topAnchor.constraint(equalTo: habitTextField.bottomAnchor, constant: 20),
            colorLable.leadingAnchor.constraint(equalTo: titleLable.leadingAnchor),
@@ -157,15 +159,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             habit.date = datePicker.date
             habit.color = colorButton.backgroundColor!
             HabitsStore.shared.save()
-            
-//            var titleOfHabitDetails = { (name: String) -> String in
-//                
-//                let habitDetailsViewController = HabitDetailsViewController()
-//                habitDetailsViewController.title = habit.name
-//                habit.name = name
-//                
-//                return name
-//            }
             
             navigationController?.dismiss(animated: true, completion: nil)
             navigationController?.popViewController(animated: true)
@@ -324,20 +317,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         return deleteButton
     }()
-    //пишем функцию для ограничения количества вводимых символов в UITextField
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //range.length - количество символов, которые можно ввести
-        //range.location - количество символов, которые уже ввели
-        //Если количество введённых символов больше, чем количество символов в текстовом поле, то возвращается false и вводить новые символы нельзя
-        if range.length + range.location > habitTextField.text?.count ?? 0 {
-            return false
-        }
-        //создаём свойство, которое устанавливает лимит. String.count - это вводимый символ, который мы должны учитывать. 
-        let newLimit = (habitTextField.text?.count)! + string.count - range.length
-        
-        return newLimit <= 30
-        
-    }
     
 }
 
