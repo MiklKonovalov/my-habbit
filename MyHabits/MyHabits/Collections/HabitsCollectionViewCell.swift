@@ -8,13 +8,20 @@
 
 import UIKit
 
+//Протокол для делегтрования нажатия на кружок
 protocol HabitsCollectionViewCellDelegate {
-    func reloadDate()
+    func reloadData()
 }
 
 final class HabitsCollectionViewCell: UICollectionViewCell {
     
-    var delegate: HabitsCollectionViewCellDelegate?
+    //Объявляем делегат для использования:
+    var delegateForReload: HabitsCollectionViewCellDelegate?
+    
+    func reloadData() {
+        //вызываем делегат в тот момент, когда нажата кнопка
+        delegateForReload?.reloadData()
+    }
     
     var createColorStatusConstraint = [NSLayoutConstraint]()
     
@@ -176,11 +183,7 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     func noAnimation() {
         let animator = UIViewPropertyAnimator(duration: 0.0, curve: .linear) {
             
-        //self.fillColorView.backgroundColor = self.habit?.color
-            
         self.checkMark.isHidden = true
-            
-        //self.countLabel.text = "Cчётчик:" + " " + "1"
             
         self.contentView.layoutIfNeeded()
                 
@@ -201,7 +204,7 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
                 //трекаем привычку
                 HabitsStore.shared.track(habit)
                 
-                delegate?.reloadDate()
+                reloadData()
                 
                 //увеличиваем счётчик
                 self.count += 1

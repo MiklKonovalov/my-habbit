@@ -8,14 +8,14 @@
 
 import UIKit
 
-
-
 class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate {
     
-    func reloadDate() {
+    func reloadData() {
+        //реализация делегируемой логики
         self.collectionView.reloadData()
-    }
     
+    }
+        
     var habit: Habit?
     
     func captureModified(habit: Habit?) {
@@ -42,14 +42,11 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate {
                     self.collectionView.reloadData()
             }
     }
-
-    var arrayForProgressView: [Habit] = []
+    
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
     //MARK: - Navbar settings
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -118,9 +115,6 @@ extension HabitsViewController: UICollectionViewDataSource {
             
             //Отключаем выбор ячеек в конкретной секции
             cellTwo.isUserInteractionEnabled = false
-            
-            let habitCollectionViewCell = HabitsCollectionViewCell()
-            habitCollectionViewCell.delegate = self
             
             return cellTwo
         }
