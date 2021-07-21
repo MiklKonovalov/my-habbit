@@ -136,10 +136,9 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             nameOfHabitLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             nameOfHabitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             nameOfHabitLabel.trailingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: -10),
-            //nameOfHabitLabel.bottomAnchor.constraint(equalTo: timeOfHabitLabel.bottomAnchor, constant: -10),
-            nameOfHabitLabel.heightAnchor.constraint(equalToConstant: 60),
+            //nameOfHabitLabel.heightAnchor.constraint(equalToConstant: 60),
             
-            timeOfHabitLabel.topAnchor.constraint(equalTo: nameOfHabitLabel.bottomAnchor),
+            timeOfHabitLabel.topAnchor.constraint(equalTo: nameOfHabitLabel.bottomAnchor, constant: 20),
             timeOfHabitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
             
             colorView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
@@ -147,8 +146,9 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             colorView.widthAnchor.constraint(equalToConstant: 40),
             colorView.heightAnchor.constraint(equalToConstant: 40),
             
-            countLabel.topAnchor.constraint(equalTo: timeOfHabitLabel.topAnchor, constant: 50),
+            countLabel.topAnchor.constraint(equalTo: timeOfHabitLabel.bottomAnchor, constant: 20),
             countLabel.leadingAnchor.constraint(equalTo: timeOfHabitLabel.leadingAnchor),
+            countLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             
             checkMark.centerYAnchor.constraint(equalTo: fillColorView.centerYAnchor),
             checkMark.centerXAnchor.constraint(equalTo: fillColorView.centerXAnchor),

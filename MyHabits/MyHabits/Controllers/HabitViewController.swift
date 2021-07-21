@@ -8,9 +8,21 @@
 
 import UIKit
 
+protocol HabitViewControllerDelegate {
+    func reloadDataForAddingHabit()
+}
+
+protocol HabitViewControllerDeleteHabitDelegate {
+    func reloadDataForDeleteHabit()
+}
+
 class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate, UITextFieldDelegate {
            
            let datePicker = UIDatePicker()
+    
+           var delegateForAddingHabbit: HabitViewControllerDelegate?
+    
+           var delegateForDeleteHabbit: HabitViewControllerDeleteHabitDelegate?
     
            var habit: Habit?
         
@@ -152,6 +164,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     @objc func createDataButton() {
         //создание новой привычки при нажатии на кнопку “Сохранить“. При этом я проверяю, чтобы новая привычка создавалась, если в контроллер до этого не передавалась привычка
         let habitsViewController = HabitsViewController()
+    
         if let habit = habit {
             //редактируем уже старую привычку
             habit.name = habitTextField.text ?? "no data"
@@ -159,7 +172,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             habit.date = datePicker.date
             habit.color = colorButton.backgroundColor!
             HabitsStore.shared.save()
-            
+            reloadDataForAddingHabit()
             navigationController?.dismiss(animated: true, completion: nil)
             navigationController?.popViewController(animated: true)
             
@@ -172,7 +185,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             let store = HabitsStore.shared
             store.habits.append(newHabit)
             HabitsStore.shared.save()
-            habitsViewController.habitArray.append(newHabit)
+            reloadDataForAddingHabit()
             navigationController?.dismiss(animated: true, completion: nil)
             navigationController?.popToRootViewController(animated: true)
         }
@@ -201,7 +214,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         //"Удалить", при нажатии на который привычка удаляется из HabitsStore, экраны HabitViewController и HabitDetailsViewController закрываются и привычка пропадает из списка на экране MyHabitsViewController.
         let deleteHabitButton = UIAlertAction(title: "Удалить", style: .destructive, handler: {
             (alertController: UIAlertAction) -> Void in
-            
             //Возвращаемся на HabitsViewController?
             self.dismiss(animated: true, completion: nil)
             self.navigationController?.popToRootViewController(animated: true)
@@ -209,12 +221,13 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             //Я уже нахожусь в конкретной привычке.
             if let idx = HabitsStore.shared.habits.firstIndex(where: { $0 === self.habit }) {
                 HabitsStore.shared.habits.remove(at: idx)
+                self.reloadDataForDeleteHabit()
             }
             
             HabitsStore.shared.save()
+            
         }
         )
-        
         alertController.addAction(cancelButton)
         alertController.addAction(deleteHabitButton)
         self.present(alertController, animated: true, completion: nil)
@@ -230,6 +243,14 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
     //MARK: - Create func
+    
+    func reloadDataForDeleteHabit() {
+        delegateForDeleteHabbit?.reloadDataForDeleteHabit()
+    }
+    
+    func reloadDataForAddingHabit() {
+        delegateForAddingHabbit?.reloadDataForAddingHabit()
+    }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         let color = viewController.selectedColor

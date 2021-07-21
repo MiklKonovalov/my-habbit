@@ -71,6 +71,7 @@ final class ProgressCollectionViewCell: UICollectionViewCell {
             progressView.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 30),
             progressView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             progressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            progressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -30),
             progressView.widthAnchor.constraint(equalToConstant: 100),
             progressView.heightAnchor.constraint(equalToConstant: 5),
             

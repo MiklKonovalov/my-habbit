@@ -8,14 +8,23 @@
 
 import UIKit
 
-class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate {
+class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate, HabitViewControllerDelegate, HabitViewControllerDeleteHabitDelegate {
+    
+    func reloadDataForDeleteHabit() {
+        //реализация делегируемой логики
+        self.collectionView.reloadData()
+    }
+    
+    func reloadDataForAddingHabit() {
+        //реализация делегируемой логики
+        self.collectionView.reloadData()
+    }
     
     func reloadData() {
         //реализация делегируемой логики
         self.collectionView.reloadData()
-    
     }
-        
+     
     var habit: Habit?
     
     func captureModified(habit: Habit?) {
@@ -37,12 +46,13 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate {
         return collectionView
     }()
     
-    var habitArray = [Habit](){
-            didSet {
-                    self.collectionView.reloadData()
-            }
-    }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let habitViewController = HabitViewController()
+        habitViewController.delegateForDeleteHabbit = self
+        habitViewController.reloadDataForDeleteHabit()
+    }
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -73,6 +83,7 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate {
     //MARK:-Selectors
     @objc func addHabit() {
         let habitViewController = HabitViewController()
+        habitViewController.delegateForAddingHabbit = self
         habitViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(habitViewController, animated: true)
         
@@ -99,11 +110,14 @@ extension HabitsViewController: UICollectionViewDataSource {
     
     //cellForItemAt отвечает за вид ячейки
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! HabitsCollectionViewCell
+        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! HabitsCollectionViewCell
         
         if indexPath.section == 1 {
             let habit = HabitsStore.shared.habits[indexPath.item]
             cell.habit = habit
+            //Кладём контроллер, который поддерживает протокол делегата
+            cell.delegateForReload = self
+            
             return cell
         }
         
