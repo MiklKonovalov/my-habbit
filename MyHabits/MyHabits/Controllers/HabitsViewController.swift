@@ -84,10 +84,12 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate, 
     //MARK:-Selectors
     @objc func addHabit() {
         let habitViewController = HabitViewController()
+        let navigationController = UINavigationController(rootViewController: habitViewController)
         habitViewController.delegateForAddingHabbit = self
         habitViewController.modalPresentationStyle = .fullScreen
-        //navigationController?.pushViewController(habitViewController, animated: true)
-        present(habitViewController, animated: true, completion: nil)
+        self.present(navigationController, animated: true) {
+            habitViewController.title = "Создать"
+        }
         
     }
     
@@ -112,7 +114,7 @@ extension HabitsViewController: UICollectionViewDataSource {
     
     //cellForItemAt отвечает за вид ячейки
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! HabitsCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath) as! HabitsCollectionViewCell
         
         if indexPath.section == 1 {
             let habit = HabitsStore.shared.habits[indexPath.item]
@@ -150,7 +152,8 @@ extension HabitsViewController: UICollectionViewDataSource {
         
         habitDetailsViewController.modalPresentationStyle = .fullScreen
         
-        _ = UINavigationController(rootViewController: habitDetailsViewController)
+        //let habitNavigationController = UINavigationController(rootViewController: habitDetailsViewController)
+        
         navigationController?.pushViewController(habitDetailsViewController, animated: true)
     
     }

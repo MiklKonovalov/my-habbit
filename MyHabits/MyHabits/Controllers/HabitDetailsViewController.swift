@@ -13,26 +13,32 @@ class HabitDetailsViewController: UIViewController {
     var habit: Habit?
     
     //Устанавливаем навбар
+    
+    let navBarAppearance = UINavigationBarAppearance()
+    
     func setupNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(tap))
     }
     
     @objc func tap() {
         //Инициализируем HabitViewController
-        //let habitsViewController = HabitsViewController()
         
         let editHabitController = HabitViewController(habit: habit, action: HabitViewController.Action(name: "Удалить привычку", action: {
-
+            
             print("123")
 
             })
         )
         
         editHabitController.modalPresentationStyle = .fullScreen
-        
+        editHabitController.title = "Править"
         //показываем контроллер через пуш
         navigationController?.pushViewController(editHabitController, animated: true)
         
+    }
+    
+    @objc func cancelTap() {
+        dismiss(animated: true, completion: nil)
     }
     
     //1. Инициализируем таблицу
@@ -45,6 +51,7 @@ class HabitDetailsViewController: UIViewController {
         super .viewWillAppear(animated)
             navigationItem.largeTitleDisplayMode = .never
             title = habit?.name
+        
     }
     
     override func viewDidLoad() {
@@ -83,19 +90,12 @@ extension HabitDetailsViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .default, reuseIdentifier: cellOne)
         
         //2.2.2.Задаём для свойства путь к определённой дате(даём понять таблице, где находится конкретная ячейка)
-        //let date = HabitsStore.shared.trackDateString(forIndex: indexPath.item)
         //->передаём Date
         let date = HabitsStore.shared.dates[indexPath.item]
-        //->форматируем Date в String
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMM yyyy"
-        dateFormatter.timeZone = TimeZone.current
-        dateFormatter.locale = Locale.current
-        let myDate = dateFormatter.string(from: date)
         
         //2.2.3.Передаём данные в ячейку
         //->передаём String
-        cell.textLabel?.text = myDate
+        cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: indexPath.row)
         
         //2.2.5.Проверяем затрекана ли привычка в конкретную дату
         if !HabitsStore.shared.habit(habit!, isTrackedIn: date) {

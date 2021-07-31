@@ -67,23 +67,6 @@
             </objects>
             <point key="canvasLocation" x="3206" y="347"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Ou2-p5-TlL">
-            <objects>
-                <navigationController storyboardIdentifier="habitViewController" id="6Hq-9d-v9r" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="A98-Nr-urB"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5pp-YS-gdR">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="B1T-7l-ffS" kind="relationship" relationship="rootViewController" id="lm0-pX-NoN"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ycE-aB-jR1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4067" y="1042"/>
-        </scene>
         <!--Сегодня-->
         <scene sceneID="SIV-Vy-zJ1">
             <objects>
@@ -91,21 +74,10 @@
                     <view key="view" contentMode="scaleToFill" id="J9z-Ht-W78">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVk-af-G5i">
-                                <rect key="frame" x="184" y="179" width="46" height="539"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="getVCfromCollection:" destination="zr8-Wh-v05" eventType="touchUpInside" id="1Wa-pI-PLx"/>
-                                    <action selector="goToHabitDetailsViewController:" destination="zr8-Wh-v05" eventType="touchUpInside" id="dFs-Rt-H0f"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="xaZ-oz-bgr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Сегодня" id="R7v-gt-QCr"/>
+                    <navigationItem key="navigationItem" title="Сегодня" id="aXS-p5-aJf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTP-rw-T84" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,6 +86,7 @@
         <!--Создать-->
         <scene sceneID="a0d-yO-LGl">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wO4-ch-LLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="B1T-7l-ffS" customClass="HabitViewController" customModule="MyHabits" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VV2-KE-ENl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -123,9 +96,26 @@
                     </view>
                     <navigationItem key="navigationItem" title="Создать" id="Adf-Zw-l54"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wO4-ch-LLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4897" y="1041"/>
+            <point key="canvasLocation" x="4741" y="1042"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="QUu-29-Gld">
+            <objects>
+                <navigationController id="sXt-Y0-NzP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="65c-SR-jak"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hZv-gf-79S">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="B1T-7l-ffS" kind="relationship" relationship="rootViewController" id="DJf-sb-IUV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gTp-0h-GMJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3999" y="1041"/>
         </scene>
         <!--Информация-->
         <scene sceneID="eab-iy-6SC">

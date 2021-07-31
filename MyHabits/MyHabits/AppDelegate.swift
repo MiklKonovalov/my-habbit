@@ -12,15 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let habitViewController = HabitsViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //Когда ваше приложение запускается, iOS необходимо точно знать, какой контроллер представления должен быть показан первым - известный как ваш контроллер представления по умолчанию.
+          
+        let navigationController = UINavigationController(rootViewController: habitViewController)
         
-        let rootView = HabitsViewController()
-            
-        if let window = self.window {
-            window.rootViewController = rootView
-        }
+        window?.rootViewController = navigationController
 
         return true
         }

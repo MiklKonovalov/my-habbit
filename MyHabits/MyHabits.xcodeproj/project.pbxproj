@@ -24,6 +24,7 @@
 		C673568D2642A091001C0BA9 /* HabitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C673568C2642A091001C0BA9 /* HabitStore.swift */; };
 		C673568F2642AEDB001C0BA9 /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C673568E2642AEDB001C0BA9 /* HabitsViewController.swift */; };
 		C67356912642AF1A001C0BA9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67356902642AF1A001C0BA9 /* InfoViewController.swift */; };
+		C6BD2CCD26B5D9AE003AC6E1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BD2CCC26B5D9AE003AC6E1 /* Colors.swift */; };
 		C6C436C926820D9500F41905 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6C436C826820D9500F41905 /* SF-Pro-Text-Semibold.otf */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		C673568C2642A091001C0BA9 /* HabitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStore.swift; sourceTree = "<group>"; };
 		C673568E2642AEDB001C0BA9 /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
 		C67356902642AF1A001C0BA9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		C6BD2CCC26B5D9AE003AC6E1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C6C436C826820D9500F41905 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-Semibold.otf"; path = "../../../San Francisco Fonts/SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				C673568C2642A091001C0BA9 /* HabitStore.swift */,
+				C6BD2CCC26B5D9AE003AC6E1 /* Colors.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C673568D2642A091001C0BA9 /* HabitStore.swift in Sources */,
+				C6BD2CCD26B5D9AE003AC6E1 /* Colors.swift in Sources */,
 				C67356612642932A001C0BA9 /* ViewController.swift in Sources */,
 				C62804B4264C0C4900B9CB97 /* HabitsCollectionViewCell.swift in Sources */,
 				C61E19572646C76700196A76 /* HabitViewController.swift in Sources */,

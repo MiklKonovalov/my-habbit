@@ -20,6 +20,8 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
            
            let datePicker = UIDatePicker()
     
+           let navBarButtonColor = UIColor(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
+    
            var delegateForAddingHabbit: HabitViewControllerDelegate?
     
            var delegateForDeleteHabbit: HabitViewControllerDeleteHabitDelegate?
@@ -59,8 +61,8 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationController?.navigationBar.prefersLargeTitles = false
+       
+        
         
     }
     
@@ -86,10 +88,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         
         let cancelButton = UIBarButtonItem(title: "Отмена", style: .done, target: self, action: #selector(cancelTap))
         self.navigationItem.leftBarButtonItem = cancelButton
-        cancelButton.tintColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
+        cancelButton.tintColor = navBarButtonColor
         
         let createButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(createDataButton))
-        createButton.tintColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
+        createButton.tintColor = navBarButtonColor
         self.navigationItem.rightBarButtonItem = createButton
         
         //MARK: - Create DatePicker
@@ -175,7 +177,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         if let habit = habit {
             //редактируем уже старую привычку
             habit.name = habitTextField.text ?? "no data"
-
             habit.date = datePicker.date
             habit.color = colorButton.backgroundColor!
             HabitsStore.shared.save()
@@ -327,11 +328,11 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         return everyDayLabel
     }()
     
-    let timeTextLabel: UILabel = {
+    lazy var timeTextLabel: UILabel = {
         let timeTextLabel = UILabel()
         timeTextLabel.font = UIFont(name: "SFProText-Regular", size: 17)
         timeTextLabel.becomeFirstResponder()
-        timeTextLabel.textColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
+        timeTextLabel.textColor = navBarButtonColor
         timeTextLabel.translatesAutoresizingMaskIntoConstraints = false
         return timeTextLabel
     }()
