@@ -25,9 +25,9 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     
     var createColorStatusConstraint = [NSLayoutConstraint]()
     
-    var count: Int = 0 {
+    var counter: Int = 0 {
         didSet {
-            countLabel.text = String(count)
+            counterLabel.text = String(counter)
         }
     }
     
@@ -37,6 +37,7 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             timeOfHabitLabel.text = habit?.dateString
             colorView.backgroundColor = habit?.color
             nameOfHabitLabel.textColor = habit?.color
+            //countLabel.text = String(counter)
             //Если привычка затрекана
             if habit?.isAlreadyTakenToday == true {
                 //устанавливаем цвет круга = цвету привычки
@@ -92,10 +93,19 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     let countLabel: UILabel = {
         let countLabel = UILabel()
         countLabel.font = UIFont(name: "SFProText-Regular", size: 13)
-        countLabel.text = "Счётчик: 0"
+        countLabel.text = "Счётчик:"
         countLabel.textColor = .systemGray2
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         return countLabel
+        }()
+    
+    let counterLabel: UILabel = {
+        let counterLabel = UILabel()
+        counterLabel.font = UIFont(name: "SFProText-Regular", size: 13)
+        counterLabel.text = String(0)
+        counterLabel.textColor = .systemGray2
+        counterLabel.translatesAutoresizingMaskIntoConstraints = false
+        return counterLabel
         }()
     
     override init(frame: CGRect) {
@@ -109,6 +119,7 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(countLabel)
         contentView.addSubview(fillColorView)
         contentView.addSubview(checkMark)
+        contentView.addSubview(counterLabel)
         
         self.contentView.layer.cornerRadius = 10
         
@@ -136,7 +147,6 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             nameOfHabitLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             nameOfHabitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             nameOfHabitLabel.trailingAnchor.constraint(equalTo: colorView.leadingAnchor, constant: -10),
-            //nameOfHabitLabel.heightAnchor.constraint(equalToConstant: 60),
             
             timeOfHabitLabel.topAnchor.constraint(equalTo: nameOfHabitLabel.bottomAnchor, constant: 20),
             timeOfHabitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
@@ -149,6 +159,10 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             countLabel.topAnchor.constraint(equalTo: timeOfHabitLabel.bottomAnchor, constant: 20),
             countLabel.leadingAnchor.constraint(equalTo: timeOfHabitLabel.leadingAnchor),
             countLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            
+            counterLabel.topAnchor.constraint(equalTo: countLabel.topAnchor),
+            counterLabel.leadingAnchor.constraint(equalTo: countLabel.trailingAnchor, constant: 10),
+            counterLabel.widthAnchor.constraint(equalToConstant: 30),
             
             checkMark.centerYAnchor.constraint(equalTo: fillColorView.centerYAnchor),
             checkMark.centerXAnchor.constraint(equalTo: fillColorView.centerXAnchor),
@@ -170,7 +184,7 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
             
         self.checkMark.isHidden = false
             
-        self.countLabel.text = "Cчётчик:" + " " + String(self.count)
+        self.counterLabel.text = String(self.counter)
             
         self.contentView.layoutIfNeeded()
                 
@@ -196,29 +210,24 @@ final class HabitsCollectionViewCell: UICollectionViewCell {
     //MARK: - Selectors
     @objc func tap() {
         //Нужно сохранить время привычки с помощью функции HabitsStore.shared.track(). Каждый день можно добавить только одно время для одной привычки. Проверить это условие можно с помощью свойства isAlreadyTakenToday.
-        
+        self.counter += 1
         //Проверяем, что привычка не была затрекана
         if let habit = habit {
             //Если привычка не затрекана
             if habit.isAlreadyTakenToday == false {
                 //трекаем привычку
                 HabitsStore.shared.track(habit)
+                //увеличиваем счётчик
                 
                 reloadData()
-                
-                //увеличиваем счётчик
-                self.count += 1
                 //вызываем анимацию
                 startAnimation()
                 print("Привычка затрекана")
             //если привычка затрекана, то ничего не происходит
             }
-            //else {
-        //создаём аниматор
-        //noAnimation()
-        //    }
+
         }
-    print(type(of: self), #function)
+
     }
     
 }

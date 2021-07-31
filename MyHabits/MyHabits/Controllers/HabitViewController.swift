@@ -41,11 +41,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             if habit != nil {
             habitTextField.text = habit?.name
             
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm a"
-            let myDate = formatter.string(from: habit!.date)
-            timeTextLabel.text = myDate
-            
             colorButton.backgroundColor = habit?.color
              
             deleteButton.setTitle(action?.name, for: .normal)
@@ -59,6 +54,14 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     
     required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
     }
     
     //MARK: -ViewDidLoad
@@ -81,8 +84,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         
         //MARK: - Create Buttons on navbar
         
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        
         let cancelButton = UIBarButtonItem(title: "Отмена", style: .done, target: self, action: #selector(cancelTap))
         self.navigationItem.leftBarButtonItem = cancelButton
         cancelButton.tintColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
@@ -100,6 +101,12 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         datePicker.backgroundColor = .white
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.date = habit?.date ?? Date() //dateOnDatePicker ?? Date()
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm a"
+        let myDate = formatter.string(from: datePicker.date)
+        
+        timeTextLabel.text = myDate
         
         //MARK: - Create constraints
         
@@ -323,7 +330,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     let timeTextLabel: UILabel = {
         let timeTextLabel = UILabel()
         timeTextLabel.font = UIFont(name: "SFProText-Regular", size: 17)
-        timeTextLabel.text = "11:00"
         timeTextLabel.becomeFirstResponder()
         timeTextLabel.textColor = .init(red: 161/255, green: 22/255, blue: 204/255, alpha: 1.0)
         timeTextLabel.translatesAutoresizingMaskIntoConstraints = false

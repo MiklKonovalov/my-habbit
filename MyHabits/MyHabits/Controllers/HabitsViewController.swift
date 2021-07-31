@@ -59,6 +59,7 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate, 
         super.viewDidLoad()
         
     //MARK: - Navbar settings
+        
         self.navigationController?.navigationBar.prefersLargeTitles = true
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -85,7 +86,8 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate, 
         let habitViewController = HabitViewController()
         habitViewController.delegateForAddingHabbit = self
         habitViewController.modalPresentationStyle = .fullScreen
-        navigationController?.pushViewController(habitViewController, animated: true)
+        //navigationController?.pushViewController(habitViewController, animated: true)
+        present(habitViewController, animated: true, completion: nil)
         
     }
     
