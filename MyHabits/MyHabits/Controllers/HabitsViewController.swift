@@ -87,6 +87,7 @@ class HabitsViewController: UIViewController, HabitsCollectionViewCellDelegate, 
         let navigationController = UINavigationController(rootViewController: habitViewController)
         habitViewController.delegateForAddingHabbit = self
         habitViewController.modalPresentationStyle = .fullScreen
+        navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true) {
             habitViewController.title = "Создать"
         }
