@@ -115,7 +115,6 @@ public final class HabitsStore {
         return Date.dates(from: startDate, to: .init())
     }
     
-    /// Прогресс выполнения добавленных привычек. Привычка считается выполненной, если пользователь добавлял время больше 5 раз.
     /// Возвращает значение от 0 до 1.
     public var todayProgress: Float {
         guard habits.isEmpty == false else {
@@ -178,13 +177,7 @@ public final class HabitsStore {
     /// - Returns: Возвращает true, если привычка была затрекана в переданную дату.
     public func habit(_ habit: Habit, isTrackedIn date: Date) -> Bool {
         habit.trackDates.contains { trackDate in
-            guard let trackDateDay = calendar.dateComponents([.day], from: trackDate).day else {
-                return false
-            }
-            guard let dateDay = calendar.dateComponents([.day], from: date).day else {
-                return false
-            }
-            return trackDateDay - dateDay == 0
+            calendar.isDate(date, equalTo: trackDate, toGranularity: .day)
         }
     }
     
@@ -223,6 +216,5 @@ private extension Date {
         return dates
     }
 }
-
 
 

@@ -23,53 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8A848CAE-CF1F-4950-A033-E5928770695D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyHabits/Store/HabitStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "save()"
-            landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent>
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D46A5479-8660-4401-8D77-789949BF01B4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyHabits/Store/HabitStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "habits"
-            landmarkType = "24">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.AppleScript">
-                  <ActionContent
-                     script = "print(habits)">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "EBACAC7E-E2DD-4576-B9A8-82EE27043EE2"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -81,22 +34,6 @@
             endingLineNumber = "173"
             landmarkName = "createDataButton()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74B2965B-333C-4EA0-86D2-96105113B817"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MyHabits/Store/HabitStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "Habit"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
